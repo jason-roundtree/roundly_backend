@@ -1,0 +1,41 @@
+validate: {
+    len: [1, 40]
+}
+
+validate: {
+    isEmail: true,
+    msg: 'Invalid email format for the customer'
+}
+
+validate: {
+    min: {
+        args: 1,
+        msg: 'A plane must have at least one seat'
+    }
+}
+
+validate: {
+    notEmpty: {
+        msg: 'Plane types should not be empty'
+    }
+}
+
+validate: {
+    isIn: {
+        args: [availableAirports],
+        msg: 'Invalid destination airport'
+    }
+}
+
+validate: {
+    isDate: {
+        args: true,
+        msg: 'Invalid date'
+    }
+}
+
+ validate: {
+    notNull: {
+        msg: 'Please enter your name'
+    }
+}
