@@ -31,11 +31,11 @@ PointSetting.belongsToMany(Round, { through: RoundPointSetting });
 PointSetting.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(PointSetting);
 
+Player.hasMany(PlayerPointEarned);
+PlayerPointEarned.belongsTo(Player);
+
 Player.hasMany(PlayerHole);
 PlayerHole.belongsTo(Player);
-
-// Player.hasMany(PlayerRound);
-// PlayerRound.belongsTo(Player);
 
 PlayerHole.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(PlayerHole);
