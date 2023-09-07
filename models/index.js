@@ -16,6 +16,9 @@ User.belongsToMany(League, { through: UserLeague });
 League.hasMany(Player);
 Player.belongsTo(League);
 
+User.hasMany(Player);
+Player.belongsTo(User);
+
 Player.belongsToMany(Round, { through: PlayerRound });
 Round.belongsToMany(Player, { through: PlayerRound });
 
@@ -31,8 +34,8 @@ PlayerPointEarned.belongsTo(PointSetting);
 Player.hasMany(PlayerHole);
 PlayerHole.belongsTo(Player);
 
-Player.hasMany(PlayerRound);
-PlayerRound.belongsTo(Player);
+// Player.hasMany(PlayerRound);
+// PlayerRound.belongsTo(Player);
 
 PlayerHole.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(PlayerHole);
