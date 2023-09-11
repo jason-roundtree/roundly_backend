@@ -13,11 +13,11 @@ const RoundGroup = require("./RoundGroup");
 League.belongsToMany(User, { through: UserLeague });
 User.belongsToMany(League, { through: UserLeague });
 
-League.hasMany(Player);
-Player.belongsTo(League);
+League.hasMany(Player, { foreignKey: { allowNull: false } });
+Player.belongsTo(League, { foreignKey: { allowNull: false } });
 
-User.hasMany(Player);
-Player.belongsTo(User);
+User.hasMany(Player, { foreignKey: { allowNull: false } });
+Player.belongsTo(User, { foreignKey: { allowNull: false } });
 
 Player.belongsToMany(Round, { through: PlayerRound });
 Round.belongsToMany(Player, { through: PlayerRound });

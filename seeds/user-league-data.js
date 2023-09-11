@@ -1,23 +1,6 @@
 const { User, League, UserLeague } = require("../models");
-const createRecords = require("./index");
-
-async function getAllUsers() {
-  try {
-    const users = await User.findAll();
-    return users;
-  } catch (err) {
-    console.log("getAllUsers error: ", err);
-  }
-}
-
-async function getLeague() {
-  try {
-    const league = await League.findOne();
-    return league;
-  } catch (err) {
-    console.log("getLeague error: ", err);
-  }
-}
+const { getAllUsers, getLeague } = require("../controllers/util-queries");
+const { createRecords } = require("./index");
 
 async function createUserLeagues() {
   const users = await getAllUsers();

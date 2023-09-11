@@ -6,9 +6,23 @@ async function createRecords(model, numRecords = 0, fn) {
       console.log("successfully created record");
       // console.log("successfully created record: ", createdRecord);
     } catch (e) {
-      console.log("create records error: ", e);
+      console.log("createRecords error: ", e);
     }
   }
 }
 
-module.exports = createRecords;
+async function createBulkRecords(model, data) {
+  console.log(">>>>> createBulkRecords data", data);
+  try {
+    const createdRecords = await model.bulkCreate(data);
+    console.log("successfully bulk created records: ", createdRecords);
+    // console.log("successfully created record: ", createdRecord);
+  } catch (e) {
+    console.log("creatBulkRecords error: ", e);
+  }
+}
+
+module.exports = {
+  createRecords,
+  createBulkRecords,
+};

@@ -1,6 +1,6 @@
 const { faker } = require("@faker-js/faker");
 const User = require("../models/User");
-const createRecords = require("./index");
+const { createRecords } = require("./index");
 
 function generateUser() {
   const id = faker.string.uuid();

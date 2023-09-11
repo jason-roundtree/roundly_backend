@@ -17,9 +17,11 @@ League.init(
     },
     startDate: {
       type: DataTypes.DATE,
+      // defaultValue: DataTypes.NOW,
     },
     endDate: {
       type: DataTypes.DATE,
+      // defaultValue: DataTypes.NOW,
     },
   },
   {
