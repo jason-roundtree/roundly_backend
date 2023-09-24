@@ -1,17 +1,17 @@
 const express = require("express");
 const sequelize = require("./db_connection");
-const {
-  User,
-  League,
-  UserLeague,
-  Player,
-  PlayerHole,
-  PlayerPointEarned,
-  PlayerRound,
-  PointSetting,
-  Round,
-  RoundGroup,
-} = require("./models");
+// const {
+//   User,
+//   League,
+//   UserLeague,
+//   Player,
+//   PlayerHole,
+//   PlayerPointEarned,
+//   PlayerRound,
+//   PointSetting,
+//   Round,
+//   RoundGroup,
+// } = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 3001;

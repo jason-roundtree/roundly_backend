@@ -1,5 +1,5 @@
 const { faker } = require("@faker-js/faker");
-const PointSetting = require("../models/PointSetting");
+const { PointSetting } = require("../models");
 const { createRecords } = require("./index");
 
 function generatePointSetting() {

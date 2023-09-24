@@ -16,6 +16,9 @@ User.belongsToMany(League, { through: UserLeague });
 League.hasMany(Player, { foreignKey: { allowNull: false } });
 Player.belongsTo(League, { foreignKey: { allowNull: false } });
 
+League.hasMany(Round);
+Round.belongsTo(League);
+
 User.hasMany(Player, { foreignKey: { allowNull: false } });
 Player.belongsTo(User, { foreignKey: { allowNull: false } });
 

@@ -1,5 +1,5 @@
 const { faker } = require("@faker-js/faker");
-const User = require("../models/User");
+const { User } = require("../models");
 const { createRecords } = require("./index");
 
 function generateUser() {

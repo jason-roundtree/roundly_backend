@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
-const { Player, User } = require("../models");
+const { Player } = require("../models");
 const { getAllUsers, getLeague } = require("../controllers/util-queries");
-const { createRecords, createBulkRecords } = require("./index");
+const { createBulkRecords } = require("./index");
 
 function generatePlayer(userId, leagueId) {
   const id = faker.string.uuid();

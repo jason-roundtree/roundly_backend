@@ -1,4 +1,4 @@
-const { User, League, UserLeague } = require("../models");
+const { UserLeague } = require("../models");
 const { getAllUsers, getLeague } = require("../controllers/util-queries");
 const { createRecords } = require("./index");
 

@@ -1,5 +1,5 @@
 const { faker } = require("@faker-js/faker");
-const League = require("../models/League");
+const { League } = require("../models");
 const { createRecords } = require("./index");
 
 function generateLeague() {

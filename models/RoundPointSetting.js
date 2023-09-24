@@ -1,8 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db_connection");
-
-const PointSetting = require("./PointSetting");
-const Round = require("./Round");
+const { PointSetting, Round } = require("./");
 
 class RoundPointSetting extends Model {}
 

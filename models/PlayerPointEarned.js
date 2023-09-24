@@ -1,7 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db_connection");
-const PointSetting = require("./PointSetting");
-const Player = require("./Player");
+const { PointSetting, Player } = require("./");
 
 class PlayerPointEarned extends Model {}
 

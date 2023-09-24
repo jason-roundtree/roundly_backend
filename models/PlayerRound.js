@@ -1,7 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db_connection");
-const Player = require("./Player");
-const League = require("./League");
+const { Player, Round } = require("./");
 
 class PlayerRound extends Model {}
 
@@ -14,20 +13,20 @@ PlayerRound.init(
         key: "id",
       },
     },
-    leagueId: {
+    roundId: {
       type: DataTypes.UUID,
       references: {
-        model: League,
+        model: Round,
         key: "id",
       },
     },
-    //   // TODO: should these only be calculated based on individual holes and round or can they also be tracked here
-    //   // totalScore: {
-    //   //     type: DataTypes.INTEGER,
-    //   // },
-    //   // totalPoints: {
-    //   //     type: DataTypes.INTEGER,
-    //   // }
+    // TODO: add auto calculated fields separately as virtuals?
+    totalScore: {
+      type: DataTypes.INTEGER,
+    },
+    totalPoints: {
+      type: DataTypes.DECIMAL,
+    },
   },
   {
     sequelize,
