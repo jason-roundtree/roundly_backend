@@ -2,23 +2,16 @@ const { UserLeague } = require("../models");
 const { getAllUsers, getLeague } = require("../controllers/util-queries");
 const { createRecords } = require("./index");
 
-async function createUserLeagues() {
-  const users = await getAllUsers();
+async function generateUserLeagues(users, leagueId) {
   //   console.log("users", users);
-  const league = await getLeague();
-  //   console.log("league", league);
-
-  for (const user of users) {
-    try {
-      const userLeague = await UserLeague.create({
-        userId: user.id,
-        leagueId: league.id,
-      });
-      console.log("userLeague:::::: ", userLeague);
-    } catch (err) {
-      console.log("create userLeague error: ", err);
-    }
-  }
+  return users.map((user) => {
+    return {
+      userId: user.id,
+      leagueId: leagueId,
+    };
+  });
 }
 
-createUserLeagues();
+// createUserLeagues();
+
+module.exports = generateUserLeagues;

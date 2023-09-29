@@ -18,4 +18,6 @@ function generateUser() {
   };
 }
 
-createRecords(User, 4, generateUser);
+// createRecords(User, 8, generateUser);
+
+module.exports = generateUser;

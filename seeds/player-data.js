@@ -14,18 +14,18 @@ function generatePlayer(userId, leagueId) {
   };
 }
 
-async function generateLeaguePlayers() {
-  const league = await getLeague();
-  const users = await getAllUsers();
+async function generateLeaguePlayers(users, leagueId) {
   const leaguePlayers = users.map((user) => {
-    return generatePlayer(user.id, league.id);
+    return generatePlayer(user.id, leagueId);
   });
   return leaguePlayers;
 }
 
-(async () => {
-  const leaguePlayers = await generateLeaguePlayers();
-  createBulkRecords(Player, leaguePlayers);
-})();
+// (async () => {
+//   const leaguePlayers = await getLeaguePlayers();
+//   createBulkRecords(Player, leaguePlayers);
+// })();
 
 // createRecords(Player, 9, generatePlayer);
+
+module.exports = generateLeaguePlayers;

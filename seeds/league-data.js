@@ -16,4 +16,6 @@ function generateLeague() {
   };
 }
 
-createRecords(League, 1, generateLeague);
+// createRecords(League, 1, generateLeague);
+
+module.exports = generateLeague;
