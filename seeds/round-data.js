@@ -1,12 +1,4 @@
 const { faker } = require("@faker-js/faker");
-const { Round } = require("../models");
-const { getLeague } = require("../controllers/util-queries");
-const { createRecords } = require("./index");
-
-// (async () => {
-//   const league = await getLeague();
-//   generateRound(league.id);
-// })();
 
 function generateRound(leagueId) {
   const id = faker.string.uuid();
@@ -22,7 +14,5 @@ function generateRound(leagueId) {
     league_id: leagueId,
   };
 }
-
-// createRecords(Round, 3, generateRound);
 
 module.exports = generateRound;

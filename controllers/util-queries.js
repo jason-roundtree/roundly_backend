@@ -1,3 +1,4 @@
+const sequelize = require("../db_connection");
 const { User, League, Player, Round, PointSetting } = require("../models");
 
 async function getAllUsers() {
@@ -42,8 +43,31 @@ async function getRandomPointSetting() {
       order: "random()",
     });
     console.log("randomPointSetting: ", randomPointSetting);
-  } catch {
+    return randomPointSetting;
+  } catch (err) {
     console.log("getRandomPointSetting error: ", err);
+  }
+}
+
+async function getRandomItemFromModel(model) {
+  try {
+    const randomItem = await model.findOne({
+      // order: "random()",
+      order: sequelize.random(),
+    });
+    console.log("randomItem: ", randomItem);
+    return randomItem;
+  } catch (err) {
+    console.log("getRandomItemFromModel error: ", err);
+  }
+}
+
+async function getAllPointSettings() {
+  try {
+    const pointSettings = await PointSetting.findAll();
+    return pointSettings;
+  } catch (err) {
+    console.log("getAllPointSettings error: ", err);
   }
 }
 
@@ -52,5 +76,6 @@ module.exports = {
   getLeague,
   getAllPlayers,
   getAllRounds,
-  getRandomPointSetting,
+  getRandomItemFromModel,
+  getAllPointSettings,
 };

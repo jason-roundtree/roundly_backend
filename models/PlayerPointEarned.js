@@ -6,15 +6,14 @@ class PlayerPointEarned extends Model {}
 
 PlayerPointEarned.init(
   {
-    // id: {
-    //   type: DataTypes.UUID,
-    //   defaultValue: DataTypes.UUIDV4,
-    //   allowNull: false,
-    //   primaryKey: true,
-    // },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+    },
     playerId: {
       type: DataTypes.UUID,
-      primaryKey: true,
       references: {
         model: Player,
         key: "id",
@@ -22,11 +21,15 @@ PlayerPointEarned.init(
     },
     pointSettingId: {
       type: DataTypes.UUID,
-      primaryKey: true,
       references: {
         model: PointSetting,
         key: "id",
       },
+    },
+    frequency: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1,
     },
   },
   {

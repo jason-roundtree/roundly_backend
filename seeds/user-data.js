@@ -1,6 +1,4 @@
 const { faker } = require("@faker-js/faker");
-const { User } = require("../models");
-const { createRecords } = require("./index");
 
 function generateUser() {
   const id = faker.string.uuid();
@@ -17,7 +15,5 @@ function generateUser() {
     username,
   };
 }
-
-// createRecords(User, 8, generateUser);
 
 module.exports = generateUser;

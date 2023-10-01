@@ -33,6 +33,7 @@ PointSetting.init(
     },
     maxFrequencyPerScope: {
       type: DataTypes.INTEGER,
+      // null value means there is no limit
       allowNull: true,
     },
     isLeagueSetting: {

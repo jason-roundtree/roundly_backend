@@ -4,30 +4,45 @@ const generateUserLeagues = require("./user-league-data");
 const generateLeaguePlayers = require("./player-data");
 const generateRound = require("./round-data");
 const generatePlayerRounds = require("./player-round-data");
-
-const { User, League, UserLeague, Player, Round } = require("../models");
+const generatePointSetting = require("./point-setting-data");
+const generatePlayerPointsEarned = require("./player-points-earned-data");
 
 const {
-  getLeague,
-  getAllUsers,
+  League,
+  Player,
+  PlayerPointEarned,
+  PlayerRound,
+  PointSetting,
+  Round,
+  User,
+  UserLeague,
+} = require("../models");
+
+const {
   getAllRounds,
+  getAllUsers,
+  getLeague,
 } = require("../controllers/util-queries");
 
 async function seedDatabase() {
   // TODO: destroy records from DB
+  // TODO: just return records from await-starting lines instead of using db calls in controllers?
   await createRecords(User, 8, generateUser);
   await createRecords(League, 1, generateLeague);
   const users = await getAllUsers();
   const league = await getLeague();
   const leagueId = league.id;
   const userLeagues = await generateUserLeagues(users, leagueId);
-  console.log("userLeagues: \n\n\n", userLeagues);
   await createBulkRecords(UserLeague, userLeagues);
   const players = await generateLeaguePlayers(users, leagueId);
   await createBulkRecords(Player, players);
   await createRecords(Round, 3, generateRound);
   const rounds = await getAllRounds();
   const playerRounds = await generatePlayerRounds(players, rounds);
+  await createBulkRecords(PlayerRound, playerRounds);
+  await createRecords(PointSetting, 5, generatePointSetting);
+  const playPointsEarned = await generatePlayerPointsEarned(12);
+  await createBulkRecords(PlayerPointEarned, playPointsEarned);
 }
 
 async function createRecords(model, numRecords = 0, fn) {
@@ -55,8 +70,3 @@ async function createBulkRecords(model, data) {
 }
 
 seedDatabase();
-
-// module.exports = {
-//   createRecords,
-//   createBulkRecords,
-// };

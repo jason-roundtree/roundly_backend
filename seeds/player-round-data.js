@@ -1,5 +1,3 @@
-const { getAllPlayers, getAllRounds } = require("../controllers/util-queries");
-
 async function generatePlayerRounds(rounds, players) {
   const pr = rounds.map((round) => {
     return players.map((player) => {
@@ -9,7 +7,7 @@ async function generatePlayerRounds(rounds, players) {
       };
     });
   });
-  console.log("pr----> ", pr);
+  return pr;
 }
 
 module.exports = generatePlayerRounds;

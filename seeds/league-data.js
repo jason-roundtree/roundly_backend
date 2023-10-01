@@ -1,6 +1,4 @@
 const { faker } = require("@faker-js/faker");
-const { League } = require("../models");
-const { createRecords } = require("./index");
 
 function generateLeague() {
   const name = faker.lorem.words({ min: 1, max: 3 });
@@ -15,7 +13,5 @@ function generateLeague() {
     endDate,
   };
 }
-
-// createRecords(League, 1, generateLeague);
 
 module.exports = generateLeague;
