@@ -1,7 +1,7 @@
 const { faker } = require("@faker-js/faker");
 
 const { Player, PointSetting, Round, PlayerHole } = require("../models");
-const { getRandomItemFromModel } = require("../controllers/util-queries");
+const { getRandomItemFromModel } = require("../routes/util-queries");
 
 async function generatePlayerPointsEarned(numRecords) {
   const playerPointsEarned = [];

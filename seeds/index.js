@@ -1,3 +1,5 @@
+const sequelize = require("../db_connection");
+
 const generateUser = require("./user-data");
 const generateLeague = require("./league-data");
 const generateUserLeagues = require("./user-league-data");
@@ -22,11 +24,11 @@ const {
   getAllRounds,
   getAllUsers,
   getLeague,
-} = require("../controllers/util-queries");
+} = require("../routes/util-queries");
 
 async function seedDatabase() {
-  // TODO: destroy records from DB
-  // TODO: just return records from await-starting lines instead of using db calls in controllers?
+  await sequelize.sync({ force: true });
+  // TODO: just return records from await-starting lines instead of using db calls in routes?
   await createRecords(User, 8, generateUser);
   await createRecords(League, 1, generateLeague);
   const users = await getAllUsers();
