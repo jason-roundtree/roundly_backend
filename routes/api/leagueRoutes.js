@@ -22,12 +22,43 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// createLeague
+router.post("/", async (req, res) => {
+  console.log("create League req.body: ", req.body);
+  try {
+    const data = await League.create(req.body);
+    res.status(200).json(data);
+  } catch (err) {
+    console.log("create League by id err: ", err);
+    res.status(400).json(err);
+  }
+});
 
-// updateLeague
+router.delete("/:id", async (req, res) => {
+  try {
+    const data = await League.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(data);
+  } catch (err) {
+    console.log("delete League err: ", err);
+    res.status(500).json(err);
+  }
+});
 
-// deleteLeague
-
-// getAllLeagues
+router.put("/:id", async (req, res) => {
+  try {
+    const [affectedRows] = await League.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).end();
+  } catch (err) {
+    console.log("update League err: ", err);
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
