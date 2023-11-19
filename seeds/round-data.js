@@ -11,8 +11,16 @@ function generateRound(leagueId) {
     name,
     date,
     location,
-    league_id: leagueId,
+    leagueId,
   };
 }
 
-module.exports = generateRound;
+function generateRounds(numRecords, leagueId) {
+  const roundsData = [];
+  for (let i = 0; i < numRecords; i++) {
+    roundsData.push(generateRound(leagueId));
+  }
+  return roundsData;
+}
+
+module.exports = generateRounds;
