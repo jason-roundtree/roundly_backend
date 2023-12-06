@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     const data = await League.create(req.body);
     res.status(200).json(data);
   } catch (err) {
-    console.log("create League by id err: ", err);
+    console.log("create League err: ", err);
     res.status(400).json(err);
   }
 });

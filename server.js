@@ -1,5 +1,7 @@
 const express = require("express");
 const sequelize = require("./db_connection");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const routes = require("./routes");
 const {
   User,
@@ -17,8 +19,14 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: true,
+//   })
+// );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 

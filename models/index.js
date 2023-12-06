@@ -13,14 +13,17 @@ const RoundGroup = require("./RoundGroup");
 League.belongsToMany(User, { through: UserLeague });
 User.belongsToMany(League, { through: UserLeague });
 
-League.hasMany(Player, { foreignKey: { allowNull: false } });
-Player.belongsTo(League, { foreignKey: { allowNull: false } });
+League.hasMany(Player, { foreignKey: { allowNull: true } });
+Player.belongsTo(League, { foreignKey: { allowNull: true } });
 
 League.hasMany(Round, { foreignKey: { allowNull: false } });
 Round.belongsTo(League, { foreignKey: { allowNull: false } });
 
-User.hasMany(Player, { foreignKey: { allowNull: false } });
-Player.belongsTo(User, { foreignKey: { allowNull: false } });
+// TODO: Change to allowNull false once Users are added?
+// User.hasMany(Player, { foreignKey: { allowNull: false } });
+// Player.belongsTo(User, { foreignKey: { allowNull: false } });
+User.hasMany(Player);
+Player.belongsTo(User);
 
 Player.belongsToMany(Round, { through: PlayerRound });
 Round.belongsToMany(Player, { through: PlayerRound });
