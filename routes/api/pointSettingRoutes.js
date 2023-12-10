@@ -1,79 +1,71 @@
 const router = require("express").Router();
-const { Player, Round } = require("../../models");
+const { PointSetting } = require("../../models");
 
 router.get("/:id", async (req, res) => {
-  console.log("get Player by id route");
+  console.log("get PointSetting by id route");
   try {
-    const data = await Player.findByPk(req.params.id, {
-      include: {
-        model: Round,
-        attributes: ["id", "name", "date"],
-        through: {
-          attributes: [],
-        },
-      },
-    });
+    const data = await PointSetting.findByPk(req.params.id);
     console.log("data: ", data);
     if (!data) {
-      res.status(404).json({ message: "No matching player" });
+      res.status(404).json({ message: "No matching point setting" });
       return;
     }
     res.status(200).json(data);
   } catch (err) {
-    console.log("get Player by id err: ", err);
+    console.log("get PointSetting by id err: ", err);
     res.status(500).json(err);
   }
 });
 
 router.post("/:leagueId", async (req, res) => {
-  console.log("create Player req.body: ", req.body);
-  const newPlayer = {
+  console.log("create PointSetting req.body: ", req.body);
+  const newPointSetting = {
     ...req.body,
     leagueId: req.params.leagueId,
   };
   try {
-    const data = await Player.create(newPlayer);
+    const data = await PointSetting.create(newPointSetting);
     res.status(200).json(data);
   } catch (err) {
-    console.log("create Player err: ", err);
+    console.log("create PointSetting err: ", err);
     res.status(400).json(err);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   try {
-    const data = await Player.destroy({
+    const data = await PointSetting.destroy({
       where: {
         id: req.params.id,
       },
     });
     res.status(200).json(data);
   } catch (err) {
-    console.log("delete Player err: ", err);
+    console.log("delete PointSetting err: ", err);
     res.status(500).json(err);
   }
 });
 
 // router.put("/", async (req, res) => {
 //   try {
-//     const [affectedRows] = await Player.update(req.body);
+//     const [affectedRows] = await PointSetting.update(req.body);
 //     res.status(204).end();
 //   } catch (err) {
-//     console.log("update Players err: ", err);
+//     console.log("update PointSettings err: ", err);
 //     res.status(500).json(err);
 //   }
 // });
 
 router.put("/:id", async (req, res) => {
   try {
-    const [affectedRows] = await Player.update(req.body, {
+    const [affectedRows] = await PointSetting.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
     res.status(204).end();
   } catch (err) {
-    console.log("update Player err: ", err);
+    console.log("update PointSetting err: ", err);
     res.status(500).json(err);
   }
 });

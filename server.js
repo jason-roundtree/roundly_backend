@@ -30,6 +30,8 @@ app.use(cors());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 
+// force sync clear only one model:
+// PointSetting.sync({ force: true });
 sequelize
   // .sync({ force: true })
   .sync()
