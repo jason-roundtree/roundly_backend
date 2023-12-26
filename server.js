@@ -14,6 +14,7 @@ const {
   PointSetting,
   Round,
   RoundGroup,
+  RoundPointSetting,
 } = require("./models");
 
 const app = express();

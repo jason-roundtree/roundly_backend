@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { PlayerRound } = require("../../models");
 
-// TODO: does it matter if this is POST, PUT, PATCH and that it handles create and update?
 router.post("/", async (req, res) => {
   console.log("create PlayerRound req.body: ", req.body);
   try {
@@ -12,5 +11,7 @@ router.post("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+// TODO: when adding PUT route for updating PlayerRound with player score or points (if you end up using these) do I need to update with composite key as ID??
 
 module.exports = router;

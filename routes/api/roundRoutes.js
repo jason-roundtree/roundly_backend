@@ -1,13 +1,17 @@
 const router = require("express").Router();
 const { Round } = require("../../models");
 
-router.get("/", async (req, res) => {
-  console.log("get all Rounds route");
+router.post("/", async (req, res) => {
+  console.log("create Round req.body: ", req.body);
+  const newRound = {
+    ...req.body,
+  };
   try {
-    const data = await Round.findAll();
+    const data = await Round.create(newRound);
     res.status(200).json(data);
   } catch (err) {
-    res.status(500).json(err);
+    console.log("create Round by id err: ", err);
+    res.status(400).json(err);
   }
 });
 
@@ -23,17 +27,6 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     console.log("get Round by id err: ", err);
     res.status(500).json(err);
-  }
-});
-
-router.post("/", async (req, res) => {
-  console.log("create Round req.body: ", req.body);
-  try {
-    const data = await Round.create(req.body);
-    res.status(200).json(data);
-  } catch (err) {
-    console.log("create Round by id err: ", err);
-    res.status(400).json(err);
   }
 });
 

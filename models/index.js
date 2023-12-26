@@ -66,4 +66,5 @@ module.exports = {
   PointSetting,
   Round,
   RoundGroup,
+  RoundPointSetting,
 };
