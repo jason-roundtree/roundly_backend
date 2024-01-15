@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Round } = require("../../models");
+const { Round, Player } = require("../../models");
 
 router.post("/", async (req, res) => {
   console.log("create Round req.body: ", req.body);
@@ -18,7 +18,15 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   console.log("get Round by id route");
   try {
-    const data = await Round.findByPk(req.params.id);
+    const data = await Round.findByPk(req.params.id, {
+      include: {
+        model: Player,
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
     if (!data) {
       res.status(404).json({ message: "No matching round" });
       return;
