@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Round, Player } = require("../../models");
+const { Round, Player, PointSetting } = require("../../models");
 
 router.post("/", async (req, res) => {
   console.log("create Round req.body: ", req.body);
@@ -19,13 +19,18 @@ router.get("/:id", async (req, res) => {
   console.log("get Round by id route");
   try {
     const data = await Round.findByPk(req.params.id, {
-      include: {
-        model: Player,
-        attributes: ["id", "name"],
-        through: {
-          attributes: [],
+      include: [
+        {
+          model: Player,
+          attributes: ["id", "name"],
         },
-      },
+        {
+          model: PointSetting,
+          // TODO: why doesn't Sequelize camelCase this by default? Is it something specific to joins?
+          as: "pointSettings",
+          attributes: ["id", "name", "value", "scope", "maxFrequencyPerScope"],
+        },
+      ],
     });
     if (!data) {
       res.status(404).json({ message: "No matching round" });

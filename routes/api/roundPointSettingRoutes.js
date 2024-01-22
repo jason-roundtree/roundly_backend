@@ -12,4 +12,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  console.log("*&^ delete RoundPointSetting req.body *&^: ", req.body);
+  try {
+    const data = await RoundPointSetting.destroy({
+      where: {
+        roundId: req.body.roundId,
+        pointId: req.body.pointId,
+      },
+    });
+    res.status(200).json(data);
+  } catch (err) {
+    console.log("delete RoundPointSetting err: ", err);
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

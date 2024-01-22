@@ -34,8 +34,14 @@ Round.belongsTo(RoundGroup);
 League.hasMany(PointSetting);
 PointSetting.belongsTo(League);
 
-Round.belongsToMany(PointSetting, { through: RoundPointSetting });
-PointSetting.belongsToMany(Round, { through: RoundPointSetting });
+Round.belongsToMany(PointSetting, {
+  through: RoundPointSetting,
+  as: "pointSettings",
+});
+PointSetting.belongsToMany(Round, {
+  through: RoundPointSetting,
+  as: "pointSettings",
+});
 
 PointSetting.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(PointSetting);
