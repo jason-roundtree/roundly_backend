@@ -18,7 +18,7 @@ router.delete("/", async (req, res) => {
     const data = await RoundPointSetting.destroy({
       where: {
         roundId: req.body.roundId,
-        pointId: req.body.pointId,
+        pointSettingId: req.body.pointSettingId,
       },
     });
     res.status(200).json(data);
