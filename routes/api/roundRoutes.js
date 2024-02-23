@@ -28,7 +28,14 @@ router.get("/:id", async (req, res) => {
           model: PointSetting,
           // TODO: why doesn't Sequelize camelCase this by default? Is it something specific to joins?
           as: "pointSettings",
-          attributes: ["id", "name", "value", "scope", "maxFrequencyPerScope"],
+          attributes: [
+            "id",
+            "name",
+            "value",
+            "isLeagueSetting",
+            "scope",
+            "maxFrequencyPerScope",
+          ],
         },
       ],
     });
