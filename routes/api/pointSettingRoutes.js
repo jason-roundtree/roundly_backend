@@ -46,16 +46,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// router.put("/", async (req, res) => {
-//   try {
-//     const [affectedRows] = await PointSetting.update(req.body);
-//     res.status(204).end();
-//   } catch (err) {
-//     console.log("update PointSettings err: ", err);
-//     res.status(500).json(err);
-//   }
-// });
-
 router.put("/:id", async (req, res) => {
   try {
     const [affectedRows] = await PointSetting.update(req.body, {

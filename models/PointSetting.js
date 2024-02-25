@@ -22,7 +22,6 @@ PointSetting.init(
     },
     scope: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         isIn: {
           // TODO: add roundGroup?
