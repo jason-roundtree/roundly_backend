@@ -49,8 +49,8 @@ PlayerPointEarned.belongsTo(PointSetting);
 Player.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(Player);
 
-Player.hasMany(PlayerHole);
-PlayerHole.belongsTo(Player);
+Player.hasMany(PlayerHole, { foreignKey: { allowNull: false } });
+PlayerHole.belongsTo(Player, { foreignKey: { allowNull: false } });
 
 PlayerHole.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(PlayerHole);
@@ -58,8 +58,8 @@ PlayerPointEarned.belongsTo(PlayerHole);
 Round.hasMany(PlayerPointEarned);
 PlayerPointEarned.belongsTo(Round);
 
-Round.hasMany(PlayerHole);
-PlayerHole.belongsTo(Round);
+Round.hasMany(PlayerHole, { foreignKey: { allowNull: false } });
+PlayerHole.belongsTo(Round, { foreignKey: { allowNull: false } });
 
 module.exports = {
   User,

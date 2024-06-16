@@ -21,7 +21,7 @@ PlayerHole.init(
     },
     score: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

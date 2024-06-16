@@ -25,7 +25,7 @@ PointSetting.init(
       validate: {
         isIn: {
           // TODO: add roundGroup?
-          args: [["hole", "round"]],
+          args: [["hole", "round", "no_scope"]],
           msg: "Invalid scope",
         },
       },
