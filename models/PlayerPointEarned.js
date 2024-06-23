@@ -26,11 +26,11 @@ PlayerPointEarned.init(
         key: "id",
       },
     },
-    // frequency: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    //   defaultValue: 1,
-    // },
+    frequency: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1,
+    },
     // totalPointEarnedValue: {
     //   type: DataTypes.VIRTUAL,
     //   get() {

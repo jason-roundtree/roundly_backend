@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const sequelize = require("../../db_connection");
+const { QueryTypes } = require("sequelize");
 const {
   PlayerPointEarned,
   PointSetting,
@@ -65,25 +66,30 @@ router.get(
   "/player/:playerId/round/:roundId/total-points",
   async (req, res) => {
     console.log("get sum of PlayerPointEarned by round");
+    const q = `
+        select 
+            player.name as player_name,
+            player.id as player_id,
+            sum(ps.value * ppe.frequency) as point_sum
+        from player_point_earned ppe
+        join point_setting ps 
+            on ppe.point_setting_id = ps.id
+        join player
+            on ppe.player_id = player.id
+        join round
+            on ppe.round_id = round.id
+        where 
+            round.id = ?
+            and
+            player.id = ?
+        group by  
+            player.id,
+            player.name;
+    `;
     try {
-      const data = await PlayerPointEarned.findAll({
-        attributes: [
-          // TODO: add frequency in here
-          [
-            sequelize.fn("SUM", sequelize.col("total_point_earned_value")),
-            "total_round_points",
-          ],
-        ],
-        where: {
-          playerId: req.params.playerId,
-          roundId: req.params.roundId,
-        },
-        include: [
-          { model: PointSetting, attributes: [] },
-          { model: Player, attributes: ["id", "name"] },
-          { model: Round, attributes: ["id"] },
-        ],
-        group: ["player.id", "round.id"],
+      const data = await sequelize.query(q, {
+        replacements: [req.params.roundId, req.params.playerId],
+        type: QueryTypes.SELECT,
       });
       console.log("sum of PlayerPointEarned by round data: ", data);
 
