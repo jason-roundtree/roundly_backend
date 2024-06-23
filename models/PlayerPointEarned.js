@@ -26,11 +26,25 @@ PlayerPointEarned.init(
         key: "id",
       },
     },
-    frequency: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 1,
-    },
+    // frequency: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   defaultValue: 1,
+    // },
+    // totalPointEarnedValue: {
+    //   type: DataTypes.VIRTUAL,
+    //   get() {
+    //     console.log("THISTHISXXX GET: ", this.PointSetting);
+    //     return this.frequency * this.PointSetting.value;
+    //   },
+    //   set() {
+    //     console.log("THISTHISXXX SET: ", this.PointSetting);
+    //     this.setDataValue(
+    //       "totalPointEarnedValue",
+    //       this.frequency * this.PointSetting.value
+    //     );
+    //   },
+    // },
   },
   {
     sequelize,

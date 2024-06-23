@@ -6,8 +6,10 @@ router.get("/:id", async (req, res) => {
   try {
     const data = await Player.findByPk(req.params.id, {
       include: {
+        // TODO: am i using this round data? Should i return round data in a player-round route?
         model: Round,
         attributes: ["id", "name", "date"],
+        // prevents PlayerRound from being included
         through: {
           attributes: [],
         },
