@@ -1,12 +1,5 @@
 const router = require("express").Router();
-const sequelize = require("../../db_connection");
-const { QueryTypes } = require("sequelize");
-const {
-  PlayerPointEarned,
-  PointSetting,
-  Player,
-  Round,
-} = require("../../models");
+const { PlayerPointEarned } = require("../../models");
 
 module.exports = router;
 

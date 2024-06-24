@@ -1,12 +1,7 @@
 const router = require("express").Router();
 const sequelize = require("../../db_connection");
 const { QueryTypes } = require("sequelize");
-const {
-  PlayerPointEarned,
-  PointSetting,
-  Player,
-  Round,
-} = require("../../models");
+const { PlayerPointEarned, PointSetting, Player } = require("../../models");
 
 module.exports = router;
 
@@ -58,7 +53,7 @@ router.get(
         select 
             player.name as player_name,
             player.id as player_id,
-            sum(ps.value * ppe.frequency) as point_sum
+            sum(ps.value * ppe.frequency) as total_points
         from player_point_earned ppe
         join point_setting ps 
             on ppe.point_setting_id = ps.id
@@ -80,14 +75,14 @@ router.get(
         type: QueryTypes.SELECT,
       });
       console.log("sum of PlayerPointEarned by round data: ", data);
-
+      // TODO: send back something other than 404 if player exists in round?
       if (!data || !data.length) {
         res
           .status(404)
           .json({ message: "No matching player round points found" });
         return;
       }
-      res.status(200).json(data);
+      res.status(200).json(data[0]);
     } catch (err) {
       console.log("get PlayerPointEarned by round err: ", err);
       res.status(500).json(err);
