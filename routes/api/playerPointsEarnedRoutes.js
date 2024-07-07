@@ -1,7 +1,12 @@
 const router = require("express").Router();
 const sequelize = require("../../db_connection");
 const { QueryTypes } = require("sequelize");
-const { PlayerPointEarned, PointSetting, Player } = require("../../models");
+const {
+  PlayerPointEarned,
+  PointSetting,
+  Player,
+  PlayerHole,
+} = require("../../models");
 
 module.exports = router;
 
@@ -27,6 +32,7 @@ router.get("/player/:playerId/round/:roundId", async (req, res) => {
           //   ],
         },
         { model: Player, attributes: ["name"] },
+        { model: PlayerHole },
       ],
     });
     console.log("PlayerPointEarned by round data: ", data);
@@ -75,11 +81,13 @@ router.get(
         type: QueryTypes.SELECT,
       });
       console.log("sum of PlayerPointEarned by round data: ", data);
-      // TODO: send back something other than 404 if player exists in round?
-      if (!data || !data.length) {
-        res
-          .status(404)
-          .json({ message: "No matching player round points found" });
+      // TODO: is 204 ok to use and is 404 needed?
+      if (!data.length) {
+        res.status(204).json({ message: "No player round points found" });
+        return;
+      }
+      if (!data) {
+        res.status(404).json({ message: "uhhh, something else happened" });
         return;
       }
       res.status(200).json(data[0]);
