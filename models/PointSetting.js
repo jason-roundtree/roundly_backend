@@ -18,7 +18,11 @@ PointSetting.init(
     // TODO: should there be a "point" setting model for accomplishments that aren't point based?
     value: {
       type: DataTypes.DECIMAL,
+      get() {
+        return parseFloat(this.getDataValue("value"));
+      },
       allowNull: false,
+      isDecimal: true,
     },
     scope: {
       type: DataTypes.STRING,
