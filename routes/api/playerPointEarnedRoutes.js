@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  console.log("delete PlayerPointEarned req.body: ", req.body);
+  console.log("delete PlayerPointEarned req.params.id: ", req.params.id);
   try {
     const data = await PlayerPointEarned.destroy({
       where: { id: req.params.id },
