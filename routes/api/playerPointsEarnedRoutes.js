@@ -10,7 +10,7 @@ const {
 
 module.exports = router;
 
-// GET player round points earned
+// GET player points earned in round
 router.get("/player/:playerId/round/:roundId", async (req, res) => {
   console.log("--> GET player round points earned");
   try {
@@ -96,7 +96,7 @@ router.get(
   }
 );
 
-// GET player round points earned by hole
+// GET player round points earned in hole
 router.get(
   "/player/:playerId/round/:roundId/hole/:holeNumber",
   async (req, res) => {

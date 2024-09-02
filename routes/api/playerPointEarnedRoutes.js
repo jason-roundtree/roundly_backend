@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { PlayerPointEarned } = require("../../models");
+const { PlayerPointEarned, PlayerHole } = require("../../models");
 
 module.exports = router;
 
@@ -12,6 +12,20 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log("create PlayerPointEarned err: ", err);
     res.status(400).json(err);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  console.log("update PlayerPointEarned req.params.id: ", req.params.id);
+  try {
+    const [affectedRows] = await PlayerPointEarned.update(req.body, {
+      where: { id: req.params.id },
+      include: [{ model: PlayerHole, where: { hole: req.body } }],
+    });
+    res.status(204).end();
+  } catch (err) {
+    console.log("update PlayerPointEarned err: ", err);
+    res.status(500).json(err);
   }
 });
 
