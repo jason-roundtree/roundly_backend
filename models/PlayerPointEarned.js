@@ -12,6 +12,7 @@ PlayerPointEarned.init(
       allowNull: false,
       primaryKey: true,
     },
+    // TODO: what's the difference between setting references here vs in associations?
     playerId: {
       type: DataTypes.UUID,
       references: {

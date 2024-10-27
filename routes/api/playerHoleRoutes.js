@@ -12,7 +12,7 @@ router.get("/player/:playerId/round/:roundId/hole/:hole", async (req, res) => {
       where: {
         playerId,
         roundId,
-        hole,
+        hole: +hole,
       },
     });
     console.log("get PlayerHole data", data);

@@ -38,7 +38,10 @@ router.get("/player/:playerId/round/:roundId", async (req, res) => {
     console.log("PlayerPointEarned by round data: ", data);
     // TODO: is 204 ok to use and is 404 needed?
     if (!data.length) {
-      res.status(204).json({ message: "No player round points found" });
+      res.status(204).json({
+        message: "No player round points found",
+        noPlayerPointsEarned: true,
+      });
       return;
     }
     if (!data) {
@@ -47,7 +50,7 @@ router.get("/player/:playerId/round/:roundId", async (req, res) => {
     }
     res.status(200).json(data);
   } catch (err) {
-    console.log("get PlayerPointEarned by round err: ", err);
+    console.log("get PlayerPointEarned by round err A: ", err);
     res.status(500).json(err);
   }
 });
@@ -135,13 +138,13 @@ router.get(
       }
       res.status(200).json(data);
     } catch (err) {
-      console.log("get PlayerPointEarned by round err: ", err);
+      console.log("get PlayerPointEarned by round err B: ", err);
       res.status(500).json(err);
     }
   }
 );
 
-// GET total points earned by player in round
+// GET total points earned by player in ROUND
 router.get(
   "/player/:playerId/round/:roundId/total-points",
   async (req, res) => {
@@ -181,9 +184,58 @@ router.get(
         res.status(404).json({ message: "uhhh, something else happened" });
         return;
       }
+      // TODO: should total points get cast as number somewhere?
       res.status(200).json(data[0]);
     } catch (err) {
-      console.log("get PlayerPointEarned by round err: ", err);
+      console.log("get PlayerPointEarned by round err C: ", err);
+      res.status(500).json(err);
+    }
+  }
+);
+
+// GET total points earned by player in LEAGUE
+router.get(
+  "/player/:playerId/league/:leagueId/total-points",
+  async (req, res) => {
+    const q = `
+        select 
+            player.name as player_name,
+            player.id as player_id,
+            sum(ps.value * ppe.frequency) as total_points
+        from player_point_earned ppe
+        join point_setting ps 
+            on ppe.point_setting_id = ps.id
+        join player
+            on ppe.player_id = player.id
+        join league
+            on league.id = player.league_id
+        where 
+            league.id = ?
+            and
+            player.id = ?
+        group by  
+            player.id,
+            player.name;
+    `;
+    try {
+      const data = await sequelize.query(q, {
+        replacements: [req.params.leagueId, req.params.playerId],
+        type: QueryTypes.SELECT,
+      });
+      console.log("sum of PlayerPointEarned by league data: ", data);
+      // TODO: is 204 ok to use and is 404 needed?
+      if (!data.length) {
+        res.status(204).json({ message: "No player league points found" });
+        return;
+      }
+      if (!data) {
+        res.status(404).json({ message: "uhhh, something else happened" });
+        return;
+      }
+      // TODO: should total points get cast as number somewhere?
+      res.status(200).json(data[0]);
+    } catch (err) {
+      console.log("get PlayerPointEarned by league err: ", err);
       res.status(500).json(err);
     }
   }

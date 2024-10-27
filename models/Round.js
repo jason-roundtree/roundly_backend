@@ -16,9 +16,11 @@ Round.init(
     },
     date: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      // TODO: remove if still unused
+      // defaultValue: DataTypes.NOW,
       allowNull: false,
     },
+    // TODO: change to course?
     location: {
       type: DataTypes.STRING,
       allowNull: false,
