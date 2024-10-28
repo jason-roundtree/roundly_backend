@@ -19,12 +19,12 @@ RoundGroup.init(
       allowNull: false,
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW,
       allowNull: false,
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
     },
   },
   {

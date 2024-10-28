@@ -15,7 +15,7 @@ Round.init(
       type: DataTypes.STRING,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       // TODO: remove if still unused
       // defaultValue: DataTypes.NOW,
       allowNull: false,
