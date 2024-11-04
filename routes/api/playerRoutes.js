@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Player, Round } = require("../../models");
+const { Player, Round, League } = require("../../models");
 
 router.get("/:id", async (req, res) => {
   console.log("get Player by id route");
@@ -27,7 +27,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+async function playerNameExistsInLeague(name, leagueId) {
+  try {
+    const user = await Player.findOne({
+      where: { name: name },
+      include: [{ model: League, where: { id: leagueId } }],
+    });
+    console.log("playerNameExistsInLeague user", user);
+    return user ? true : false;
+  } catch (err) {
+    console.log("checkIfPlayerNameExists err: ", err);
+  }
+}
+
 router.post("/:leagueId", async (req, res) => {
+  const playerNameExists = await playerNameExistsInLeague(
+    req.body.name,
+    req.params.leagueId
+  );
+  if (playerNameExists) {
+    return res.status(409).json({ message: "Playe name already exists" });
+  }
+
   console.log("create Player req.body: ", req.body);
   const newPlayer = {
     ...req.body,
