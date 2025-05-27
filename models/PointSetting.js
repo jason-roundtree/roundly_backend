@@ -34,9 +34,9 @@ PointSetting.init(
         },
       },
     },
-    maxFrequencyPerScope: {
-      type: DataTypes.INTEGER,
-    },
+    // maxFrequencyPerScope: {
+    //   type: DataTypes.INTEGER,
+    // },
     isLeagueSetting: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,

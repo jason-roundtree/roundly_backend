@@ -1,5 +1,10 @@
 const router = require("express").Router();
-const { PlayerPointEarned, PlayerHole } = require("../../models");
+const {
+  PlayerPointEarned,
+  Player,
+  PlayerHole,
+  PointSetting,
+} = require("../../models");
 
 module.exports = router;
 
@@ -38,6 +43,94 @@ router.delete("/:id", async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     console.log("delete PlayerPointEarned err: ", err);
+    res.status(500).json(err);
+  }
+});
+
+// GET check if player earned specific point on a hole
+router.get("/hole-point-earned", async (req, res) => {
+  console.log("--> GET check if player earned specific point on a hole");
+  console.log("hole-point-earned", req.query);
+  try {
+    // TODO: change to findOne
+    const data = await PlayerPointEarned.findAll({
+      where: {
+        playerId: req.query.playerId,
+        roundId: req.query.roundId,
+        pointSettingId: req.query.pointSettingId,
+      },
+      include: [
+        {
+          model: PointSetting,
+          //   attributes: [
+          //     "id",
+          //     "name",
+          //     "value",
+          //     "scope",
+          //     "isLeagueSetting",
+          //     "maxFrequencyPerScope",
+          //   ],
+        },
+        { model: Player, attributes: ["name"] },
+        { model: PlayerHole, where: { hole: req.query.hole } },
+      ],
+    });
+    console.log("specific PlayerPointEarned by hole data: ", data);
+    // TODO: is 204 ok to use and is 404 needed?
+    if (!data.length) {
+      res
+        .status(204)
+        .json({ message: "Point not earned by player on this hole" });
+      return;
+    }
+    if (!data) {
+      res.status(404);
+      return;
+    }
+    res.status(200).json(data);
+  } catch (err) {
+    console.log("specific PlayerPointEarned by hole err: ", err);
+    res.status(500).json(err);
+  }
+});
+
+// GET check if player earned specific point in a round
+router.get("/round-point-earned", async (req, res) => {
+  console.log("round-point-earned", req.query);
+  try {
+    const data = await PlayerPointEarned.findOne({
+      where: {
+        playerId: req.query.playerId,
+        roundId: req.query.roundId,
+        pointSettingId: req.query.pointSettingId,
+      },
+      include: [
+        {
+          model: PointSetting,
+          //   attributes: [
+          //     "id",
+          //     "name",
+          //     "value",
+          //     "scope",
+          //     "isLeagueSetting",
+          //     "maxFrequencyPerScope",
+          //   ],
+        },
+        { model: Player, attributes: ["name"] },
+        { model: PlayerHole },
+      ],
+    });
+    console.log("XYZ specific PlayerPointEarned by round data: ", data);
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res
+        // TODO: is 204 ok to use instead of 404?
+        .status(204)
+        .json({ message: "Point not earned by player in this round" });
+    }
+  } catch (err) {
+    console.log("specific PlayerPointEarned by round err: ", err);
     res.status(500).json(err);
   }
 });

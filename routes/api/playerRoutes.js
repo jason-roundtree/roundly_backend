@@ -30,13 +30,13 @@ router.get("/:id", async (req, res) => {
 async function playerNameExistsInLeague(name, leagueId) {
   try {
     const user = await Player.findOne({
-      where: { name: name },
-      include: [{ model: League, where: { id: leagueId } }],
+      where: { name: name, leagueId: leagueId },
+      // include: [{ model: League, where: { id: leagueId } }],
     });
     console.log("playerNameExistsInLeague user", user);
     return user ? true : false;
   } catch (err) {
-    console.log("checkIfPlayerNameExists err: ", err);
+    console.log("playerNameExistsInLeague err: ", err);
   }
 }
 
@@ -46,7 +46,7 @@ router.post("/:leagueId", async (req, res) => {
     req.params.leagueId
   );
   if (playerNameExists) {
-    return res.status(409).json({ message: "Playe name already exists" });
+    return res.status(409).json({ message: "Player name already exists" });
   }
 
   console.log("create Player req.body: ", req.body);

@@ -1,5 +1,10 @@
 const router = require("express").Router();
-const { PointSetting } = require("../../models");
+const {
+  PointSetting,
+  League,
+  Round,
+  RoundPointSetting,
+} = require("../../models");
 
 router.get("/:id", async (req, res) => {
   console.log("get PointSetting by id route");
@@ -17,8 +22,66 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// TODO: DRYify with playeNameExistsInLeague into middleware?
+async function pointSettingExistsInLeague(name, leagueId) {
+  try {
+    const existsInLeague = await PointSetting.findOne({
+      where: { name: name, league_id: leagueId },
+    });
+    console.log("pointSettingExistsInLeague pointSetting", existsInLeague);
+    return existsInLeague ? true : false;
+  } catch (err) {
+    console.log("pointSettingExistsInLeague err: ", err);
+  }
+}
+
+// TODO: move to RoundPointSetting
+async function pointSettingExistsInRound(name, roundId) {
+  try {
+    const existsInRound = await PointSetting.findOne({
+      where: { name: name },
+      include: [
+        {
+          model: Round,
+          as: "pointSettings",
+          where: { id: roundId },
+        },
+      ],
+    });
+    console.log("XCXCXCXCDCDFC pointSettingExistsInRound", existsInRound);
+    return existsInRound ? true : false;
+  } catch (err) {
+    console.log("pointSettingExistsInRound err: ", err);
+  }
+}
+
 router.post("/:leagueId", async (req, res) => {
   console.log("create PointSetting req.body: ", req.body);
+  const newPointName = req.body.name;
+  const { roundId } = req.query;
+  if (req.body.isLeagueSetting) {
+    const existsInLeague = await pointSettingExistsInLeague(
+      newPointName,
+      req.params.leagueId
+    );
+    if (existsInLeague) {
+      return res
+        .status(409)
+        .json({ message: "Point name already exists in league" });
+    }
+  } else {
+    const existsInRound = await pointSettingExistsInRound(
+      newPointName,
+      roundId
+    );
+    console.log("GHHHGHGG existsInRound", existsInRound);
+    if (existsInRound) {
+      return res
+        .status(409)
+        .json({ message: "Point name already exists in round" });
+    }
+  }
+
   const newPointSetting = {
     ...req.body,
     leagueId: req.params.leagueId,

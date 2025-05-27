@@ -77,12 +77,15 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   console.log("update PlayerHole req.body: ", req.body);
   try {
-    const [affectedRows] = await PlayerHole.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.status(204).end();
+    const playerHole = await PlayerHole.findByPk(req.params.id);
+    if (!playerHole) {
+      return res.status(204).json({ message: "PlayerHole not found" });
+    }
+
+    playerHole.set(req.body);
+    await playerHole.save();
+
+    res.status(200).json(playerHole);
   } catch (err) {
     console.log("update PlayerHole err: ", err);
     res.status(500).json(err);

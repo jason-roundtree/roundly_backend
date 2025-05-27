@@ -27,7 +27,7 @@ PlayerPointEarned.init(
         key: "id",
       },
     },
-    frequency: {
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 1,
@@ -36,13 +36,13 @@ PlayerPointEarned.init(
     //   type: DataTypes.VIRTUAL,
     //   get() {
     //     console.log("THISTHISXXX GET: ", this.PointSetting);
-    //     return this.frequency * this.PointSetting.value;
+    //     return this.quantity * this.PointSetting.value;
     //   },
     //   set() {
     //     console.log("THISTHISXXX SET: ", this.PointSetting);
     //     this.setDataValue(
     //       "totalPointEarnedValue",
-    //       this.frequency * this.PointSetting.value
+    //       this.quantity * this.PointSetting.value
     //     );
     //   },
     // },

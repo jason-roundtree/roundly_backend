@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-  console.log("*&^ delete RoundPointSetting req.body *&^: ", req.body);
   try {
     const data = await RoundPointSetting.destroy({
       where: {

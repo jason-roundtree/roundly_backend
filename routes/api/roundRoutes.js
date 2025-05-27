@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
             "value",
             "isLeagueSetting",
             "scope",
-            "maxFrequencyPerScope",
+            // "maxFrequencyPerScope",
           ],
         },
       ],

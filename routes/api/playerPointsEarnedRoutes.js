@@ -99,7 +99,7 @@ router.get(
   }
 );
 
-// GET player round points earned in hole
+// GET player points earned in hole
 router.get(
   "/player/:playerId/round/:roundId/hole/:holeNumber",
   async (req, res) => {
@@ -153,7 +153,7 @@ router.get(
         select 
             player.name as player_name,
             player.id as player_id,
-            sum(ps.value * ppe.frequency) as total_points
+             sum(ps.value * ppe.quantity)::FLOAT as total_points
         from player_point_earned ppe
         join point_setting ps 
             on ppe.point_setting_id = ps.id
@@ -201,7 +201,7 @@ router.get(
         select 
             player.name as player_name,
             player.id as player_id,
-            sum(ps.value * ppe.frequency) as total_points
+            sum(ps.value * ppe.quantity)::FLOAT as total_points
         from player_point_earned ppe
         join point_setting ps 
             on ppe.point_setting_id = ps.id

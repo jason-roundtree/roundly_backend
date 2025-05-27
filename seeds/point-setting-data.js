@@ -5,10 +5,10 @@ function generatePointSetting() {
   const name = faker.lorem.words({ min: 1, max: 2 });
   const value = faker.number.int({ min: -50, max: 200 });
   const scope = faker.helpers.arrayElement(["hole", "round"]);
-  const maxFrequencyPerScope = faker.helpers.arrayElement([
-    faker.number.int({ min: 1, max: 10 }),
-    null,
-  ]);
+  // const maxFrequencyPerScope = faker.helpers.arrayElement([
+  //   faker.number.int({ min: 1, max: 10 }),
+  //   null,
+  // ]);
   const isLeagueSetting = faker.helpers.arrayElement([true, false]);
 
   return {
@@ -16,7 +16,7 @@ function generatePointSetting() {
     name,
     value,
     scope,
-    maxFrequencyPerScope,
+    // maxFrequencyPerScope,
     isLeagueSetting,
   };
 }
