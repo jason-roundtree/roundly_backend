@@ -21,12 +21,12 @@ PlayerRound.init(
       },
     },
     // TODO: add auto calculated fields separately as virtuals?
-    totalScore: {
-      type: DataTypes.INTEGER,
-    },
-    totalPoints: {
-      type: DataTypes.DECIMAL,
-    },
+    // totalScore: {
+    //   type: DataTypes.INTEGER,
+    // },
+    // totalPoints: {
+    //   type: DataTypes.DECIMAL,
+    // },
   },
   {
     sequelize,
@@ -35,5 +35,23 @@ PlayerRound.init(
     underscored: true,
   }
 );
+
+// track player holes & points earned in JSON?
+/***
+ *  holes: {
+ *    type: DataTypes.JSONB,
+ *    allowNull: false,
+ *    defaultValue: [],
+ *  },
+ *
+ * [{
+ *  hole: 1,
+ *  score: 4,
+ *  pointsEarned: [
+ *   { pointSettingId: 234, quantity: 3 },
+ *   { pointSettingId: 456, quantity: 1 },
+ *  ]
+ * }]
+ */
 
 module.exports = PlayerRound;

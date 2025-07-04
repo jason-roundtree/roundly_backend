@@ -134,3 +134,44 @@ router.get("/round-point-earned", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// GET player point earned by id
+router.get("/:id", async (req, res) => {
+  try {
+    const data = await PlayerPointEarned.findOne({
+      where: { id: req.params.id },
+      include: [
+        { model: PointSetting },
+        { model: Player, attributes: ["name"] },
+        { model: PlayerHole },
+      ],
+    });
+    console.log("$#$ get PlayerPointEarned by id data:", data);
+    const reshapedData = {
+      id: data.id,
+      playerId: data.playerId,
+      playerName: data.player.name,
+      roundId: data.roundId,
+      pointSetting: {
+        id: data.point_setting.id,
+        name: data.point_setting.name,
+        scope: data.point_setting.scope,
+        value: data.point_setting.value,
+        isLeagueSetting: data.point_setting.isLeagueSetting,
+      },
+      hole: {
+        id: data.player_hole.id,
+        hole: data.player_hole.hole,
+      },
+      quantity: data.quantity,
+    };
+    if (data) {
+      res.status(200).json(reshapedData);
+    } else {
+      res.status(404).json({ message: "PlayerPointEarned not found" });
+    }
+  } catch (err) {
+    console.log("get PlayerPointEarned by id err:", err);
+    res.status(500).json(err);
+  }
+});
